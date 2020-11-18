@@ -1,22 +1,17 @@
 const API_URL = 'https://jsonbox.io/box_d788a9bf191742ebe74f';
 
 // GET
-export const getData = async(endpoint) => {
+export const getData = async() => {
     try {
-        const fetchData = await fetch(API_URL, { method: "GET" });
-        const response = await fetchData.json();
-
-        let todos = Object.keys(response).map((key) => ({
-            id: key,
-            description: response[key].description,
-            done: response[key].done
-        }));
-        return todos;
-
+        const response = await fetch(API_URL);
+        if (response.ok) {
+            return await response.json();
+        }
     } catch (error) {
         console.log(error);
     }
 }
+getData();
 
 // POST
 const data = { description: "water plants", done: false };

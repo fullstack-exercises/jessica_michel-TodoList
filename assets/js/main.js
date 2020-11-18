@@ -5,15 +5,17 @@ const toDoList = document.querySelector('.todo-list');
 
 // Get data from another file
 const loadData = async() => {
-    let data = await getData(); // see console log
-    // console.log(data);
-    const getTasks = data.map(item => {
-        console.log(item.description);
+    let data = await getData();
+    const getTodo = data.map(item => {
+        const todo = item.description;
+        console.log(todo);
     });
 }
 loadData();
+// const getTodos = async() => {
 
-// console.log(typeof getData);
+// }
+// getTodos();
 
 
 // Requirements:
