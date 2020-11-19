@@ -1,21 +1,45 @@
-import { getData } from './api-client.js';
+import { getData, postTodo } from './api-client.js';
 
 const container = document.querySelector('.container');
 const toDoList = document.querySelector('.todo-list');
+const formTodo = document.querySelector('.form-todo');
+const inputTodo = document.querySelector('.input-todo');
 
 // Get data from another file
-const loadData = async() => {
-    let data = await getData();
+const addTodo = async() => {
+    const data = await getData();
     const getTodo = data.map(item => {
         const todo = item.description;
-        console.log(todo);
+        let li = document.createElement('li');
+        toDoList.appendChild(li);
+        li.classList.add('task');
+        li.innerHTML = item.description;
+
     });
 }
-loadData();
-// const getTodos = async() => {
+addTodo();
 
-// }
-// getTodos();
+const createTodo = () => {
+
+    formTodo.addEventListener('submit', async(event) => {
+        event.preventDefault();
+        let valueNewTodo = inputTodo.value;
+        console.log(valueNewTodo);
+        let li = document.createElement('li');
+        // toDoList.appendChild(li);
+        toDoList.insertAdjacentElement('afterbegin', li);
+
+        li.classList.add('task');
+        li.innerHTML = valueNewTodo;
+
+
+        const data = await postTodo({ description: valueNewTodo, done: false });
+    });
+}
+createTodo();
+
+
+
 
 
 // Requirements:

@@ -11,25 +11,21 @@ export const getData = async() => {
         console.log(error);
     }
 }
-getData();
 
 // POST
-const data = { description: "water plants", done: false };
-const addTodo = () => {
-        try {
-            fetch(API_URL, {
-                    method: "POST",
-                    body: JSON.stringify(data),
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                })
-        } catch (error) {
-            console.log(error);
+export const postTodo = async(data) => {
+    try {
+        const response = await fetch(API_URL, {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        if (response.ok) {
+            return await response.json();
         }
+    } catch (error) {
+        console.log(error);
     }
-    // addTodo();
+}
