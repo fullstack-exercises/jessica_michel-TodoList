@@ -1,4 +1,31 @@
+body {
+    background: rgb(237, 178, 194);
+    background: linear-gradient(90deg, rgba(237, 178, 194, 1) 0%, rgba(158, 114, 201, 1) 100%);
+    font-family: 'Quicksand', sans-serif;
+}
+
+h1 {
+    text-align: center;
+    color: $color-white;
+}
+
+.container {
+    // display: flex;
+    // flex-wrap: wrap;
+    // justify-content: center;
+}
+
 .todo-list {
-    background: $color-lightgrey;
+    width: 50%;
+    padding: $space-m;
+    background: $color-white;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.08);
     min-height: 100px;
+    border-radius: 20px;
+    margin: 0 auto;
+    display: block;
+}
+
+.task {
+    color: $color-grey;
 }

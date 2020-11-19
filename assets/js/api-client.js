@@ -29,3 +29,21 @@ export const postTodo = async(data) => {
         console.log(error);
     }
 }
+
+// DELETE
+export const deleteTodo = async(data) => {
+    try {
+        const response = await fetch(API_URL, {
+            method: "DELETE",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        if (response.ok) {
+            return await response.json();
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
