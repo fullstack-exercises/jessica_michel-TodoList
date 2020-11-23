@@ -5,7 +5,11 @@ const toDoList = document.querySelector('.todo__list');
 const formTodo = document.querySelector('.todo__form');
 const inputTodo = document.querySelector('.input-todo');
 
-// Get data from another file
+const checkToDo = async() => {
+    const checkbox = document.querySelectorAll('.todo__checkbox');
+    console.log(checkbox.length);
+};
+
 const addTodo = async() => {
     const data = await getData();
     const getTodo = data.map(item => {
@@ -13,17 +17,24 @@ const addTodo = async() => {
         const newform = document.createElement('form');
         newform.setAttribute('id', item._id); // creates ID
 
+        const newCheckbox = document.createElement('input');
+        newCheckbox.type = 'checkbox';
+        newCheckbox.classList.add('.todo__checkbox');
+        newCheckbox.id = item.description;
+
         const label = document.createElement('label');
+        label.htmlFor = item.description;
         label.innerHTML = item.description;
         label.classList.add('todo__single');
 
         toDoList.appendChild(newform);
-        newform.appendChild(label);
+        newform.append(newCheckbox, label);
     });
+    checkToDo();
 }
 addTodo();
 
-const createTodo = () => {
+const createTodo = async() => {
     formTodo.addEventListener('submit', async(event) => {
         event.preventDefault();
         let valueNewTodo = inputTodo.value;
@@ -37,6 +48,8 @@ const createTodo = () => {
     });
 }
 createTodo();
+
+
 
 // const deleteTodo = async() => {
 //     const data = await deleteTodo(id);

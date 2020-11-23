@@ -25,4 +25,8 @@ h1 {
 .task {
   color: #838383;
 }
+
+input[type=checkbox]:checked + label {
+  text-decoration: line-through;
+}
 /*# sourceMappingURL=style.css.map */

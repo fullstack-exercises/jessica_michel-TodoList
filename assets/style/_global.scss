@@ -29,3 +29,7 @@ h1 {
 .task {
     color: $color-grey;
 }
+
+input[type=checkbox]:checked+label {
+    text-decoration: line-through;
+}
