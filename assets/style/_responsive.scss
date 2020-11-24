@@ -1,0 +1,11 @@
+// All styling is mobile first
+// Tablet
+@media screen and (min-width: 480px) {}
+
+// Desktop
+@media screen and (min-width: 1024px) {
+    .todo__form,
+    .todo__list {
+        width: 50%;
+    }
+}

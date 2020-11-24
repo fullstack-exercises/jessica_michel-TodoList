@@ -3,7 +3,7 @@ import { getData, postTodo, deleteTodo, updateTodo } from './api-client.js';
 const container = document.querySelector('.container');
 const toDoList = document.querySelector('.todo__list');
 const formTodo = document.querySelector('.todo__form');
-const inputTodo = document.querySelector('.input-todo');
+const inputTodo = document.querySelector('.todo__input');
 
 const addToDoList = async() => {
     const data = await getData();
@@ -49,17 +49,26 @@ const postNewTodo = async() => {
 }
 postNewTodo();
 
-const updateNewTodo = async(event) => {
+const updateNewLabelTodo = async(event) => {
     const newLabelText = event.target.innerText;
-    console.log(newLabelText);
     if (event.target && event.target.classList.contains('todo__single')) {
         // console.log(event.target);
         const targetID = event.target.parentNode.id;
         const data = await updateTodo(targetID, { description: newLabelText, done: false });
     }
 }
+toDoList.addEventListener('input', updateNewLabelTodo);
 
-toDoList.addEventListener('input', updateNewTodo);
+const updateCheckedTodo = async(event) => {
+    const labelText = event.target.nextElementSibling.innerText;
+    console.log(labelText);
+    if (event.target && event.target.classList.contains('todo__checkbox')) {
+        console.log(event.target);
+        const targetID = event.target.parentNode.id;
+        const data = await updateTodo(targetID, { description: labelText, done: true });
+    }
+}
+toDoList.addEventListener('change', updateCheckedTodo);
 
 const deleteToDoItem = async(event) => {
     const deleteBtn = event.target;
