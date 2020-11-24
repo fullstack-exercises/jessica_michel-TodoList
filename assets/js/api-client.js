@@ -47,3 +47,22 @@ export const deleteTodo = async(id) => {
         console.log(error);
     }
 }
+
+// UPDATE
+export const updateTodo = async(id, data) => {
+    const endpoint = `https://jsonbox.io/box_d788a9bf191742ebe74f/${id}`;
+    try {
+        const response = await fetch(endpoint, {
+            method: "PUT",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        if (response.ok) {
+            return await response.json();
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}

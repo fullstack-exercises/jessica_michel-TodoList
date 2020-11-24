@@ -1,4 +1,4 @@
-import { getData, postTodo, deleteTodo } from './api-client.js';
+import { getData, postTodo, deleteTodo, updateTodo } from './api-client.js';
 
 const container = document.querySelector('.container');
 const toDoList = document.querySelector('.todo__list');
@@ -20,7 +20,7 @@ const createToDo = (item) => {
 
     const newCheckbox = document.createElement('input');
     newCheckbox.type = 'checkbox';
-    newCheckbox.classList.add('.todo__checkbox');
+    newCheckbox.classList.add('todo__checkbox');
     newCheckbox.id = item.description;
 
     const label = document.createElement('label');
@@ -49,9 +49,23 @@ const postNewTodo = async() => {
 }
 postNewTodo();
 
+const updateNewTodo = async(event) => {
+    const newLabelText = event.target.innerText;
+    console.log(newLabelText);
+    if (event.target && event.target.classList.contains('todo__single')) {
+        // console.log(event.target);
+        const targetID = event.target.parentNode.id;
+        const data = await updateTodo(targetID, { description: newLabelText, done: false });
+    }
+}
+
+toDoList.addEventListener('input', updateNewTodo);
+
 const deleteToDoItem = async(event) => {
     const deleteBtn = event.target;
     if (event.target && event.target.classList.contains('todo__delete')) {
+        console.log(event.target);
+
         event.target.parentNode.classList.add('delete');
         const targetID = event.target.parentNode.id;
         const data = await deleteTodo(targetID);
