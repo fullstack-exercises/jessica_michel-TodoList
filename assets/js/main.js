@@ -4,6 +4,7 @@ const container = document.querySelector('.container');
 const toDoList = document.querySelector('.todo__list');
 const formTodo = document.querySelector('.todo__form');
 const inputTodo = document.querySelector('.input-todo');
+console.log(inputTodo);
 
 const addTodo = async() => {
     const data = await getData();
@@ -35,8 +36,11 @@ addTodo();
 
 const createToDo = async() => {
     formTodo.addEventListener('submit', async(event) => {
+        console.log('test');
+
         event.preventDefault();
         let valueNewTodo = inputTodo.value;
+        console.log(inputTodo.value);
 
         let li = document.createElement('li');
         toDoList.appendChild(li);
@@ -55,6 +59,5 @@ const deleteToDoItem = async(event) => {
         const targetID = event.target.parentNode.id;
         const data = await deleteTodo(targetID);
     }
-
 }
 toDoList.addEventListener('click', deleteToDoItem);
