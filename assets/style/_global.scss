@@ -30,6 +30,17 @@ h1 {
     color: $color-grey;
 }
 
+.fa-trash-alt {
+    padding-left: $space;
+    &:hover {
+        color: red;
+    }
+}
+
 input[type=checkbox]:checked+label {
     text-decoration: line-through;
+}
+
+.delete {
+    display: none;
 }

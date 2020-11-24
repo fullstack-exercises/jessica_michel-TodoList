@@ -31,11 +31,11 @@ export const postTodo = async(data) => {
 }
 
 // DELETE
-export const deleteTodo = async(data) => {
+export const deleteTodo = async(id) => {
+    const endpoint = `https://jsonbox.io/box_d788a9bf191742ebe74f/${id}`;
     try {
-        const response = await fetch(API_URL, {
+        const response = await fetch(endpoint, {
             method: "DELETE",
-            body: JSON.stringify(data),
             headers: {
                 "Content-Type": "application/json",
             },

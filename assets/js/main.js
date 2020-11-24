@@ -5,17 +5,13 @@ const toDoList = document.querySelector('.todo__list');
 const formTodo = document.querySelector('.todo__form');
 const inputTodo = document.querySelector('.input-todo');
 
-const checkToDo = async() => {
-    const checkbox = document.querySelectorAll('.todo__checkbox');
-    console.log(checkbox.length);
-};
-
 const addTodo = async() => {
     const data = await getData();
     const getTodo = data.map(item => {
 
-        const newform = document.createElement('form');
-        newform.setAttribute('id', item._id); // creates ID
+        const form = document.createElement('form');
+        form.setAttribute('id', item._id); // creates ID
+        form.classList.add('todo__id');
 
         const newCheckbox = document.createElement('input');
         newCheckbox.type = 'checkbox';
@@ -27,18 +23,21 @@ const addTodo = async() => {
         label.innerHTML = item.description;
         label.classList.add('todo__single');
 
-        toDoList.appendChild(newform);
-        newform.append(newCheckbox, label);
+        const deleteBtn = document.createElement('i');
+        deleteBtn.classList.add('far', 'fa-trash-alt', 'todo__delete');
+
+        toDoList.appendChild(form);
+        form.append(newCheckbox, label, deleteBtn);
+
     });
-    checkToDo();
 }
 addTodo();
 
-const createTodo = async() => {
+const createToDo = async() => {
     formTodo.addEventListener('submit', async(event) => {
         event.preventDefault();
         let valueNewTodo = inputTodo.value;
-        console.log(valueNewTodo);
+
         let li = document.createElement('li');
         toDoList.appendChild(li);
         toDoList.insertAdjacentElement('afterbegin', li);
@@ -47,11 +46,15 @@ const createTodo = async() => {
         const data = await postTodo({ description: valueNewTodo, done: false });
     });
 }
-createTodo();
+createToDo();
 
+const deleteToDoItem = async(event) => {
+    const deleteBtn = event.target;
+    if (event.target && event.target.classList.contains('todo__delete')) {
+        event.target.parentNode.classList.add('delete');
+        const targetID = event.target.parentNode.id;
+        const data = await deleteTodo(targetID);
+    }
 
-
-// const deleteTodo = async() => {
-//     const data = await deleteTodo(id);
-
-// }
+}
+toDoList.addEventListener('click', deleteToDoItem);
