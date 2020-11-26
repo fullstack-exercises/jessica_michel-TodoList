@@ -16,6 +16,7 @@ addToDoList();
 const createToDo = (item) => {
     const form = document.createElement('form');
     form.setAttribute('id', item._id); // creates ID
+    console.log(form.setAttribute('id', item._id));
     form.classList.add('todo__id');
 
     const newCheckbox = document.createElement('input');
@@ -28,6 +29,10 @@ const createToDo = (item) => {
     label.innerHTML = item.description;
     label.contentEditable = true;
     label.classList.add('todo__single');
+
+    if (item.done === true) {
+        label.style.textDecoration = "line-through";
+    }
 
     const deleteBtn = document.createElement('i');
     deleteBtn.classList.add('far', 'fa-trash-alt', 'todo__delete');
@@ -55,7 +60,6 @@ postNewTodo();
 const updateNewLabelTodo = async(event) => {
     const newLabelText = event.target.innerText;
     if (event.target && event.target.classList.contains('todo__single')) {
-        // console.log(event.target);
         const targetID = event.target.parentNode.id;
         const data = await updateTodo(targetID, { description: newLabelText, done: false });
     }
@@ -64,11 +68,12 @@ toDoList.addEventListener('input', updateNewLabelTodo);
 
 const updateCheckedTodo = async(event) => {
     const labelText = event.target.nextElementSibling.innerText;
-    console.log(labelText);
+    console.log(event.target);
     if (event.target && event.target.classList.contains('todo__checkbox')) {
-        console.log(event.target);
         const targetID = event.target.parentNode.id;
-        const data = await updateTodo(targetID, { description: labelText, done: true });
+        if (event.target.checked == true) {
+            const data = await updateTodo(targetID, { description: labelText, done: true });
+        }
     }
 }
 toDoList.addEventListener('change', updateCheckedTodo);
