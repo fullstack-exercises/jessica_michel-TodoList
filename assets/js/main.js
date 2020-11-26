@@ -40,11 +40,14 @@ const postNewTodo = async() => {
     formTodo.addEventListener('submit', async(event) => {
         event.preventDefault();
 
-        let item = inputTodo.value;
-        console.log(inputTodo.value);
-
+        let item = {
+            description: inputTodo.value,
+            done: false
+        }
+        console.log(item);
         createToDo(item);
-        const data = await postTodo({ description: item, done: false });
+
+        const data = await postTodo(item);
     });
 }
 postNewTodo();
