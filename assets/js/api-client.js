@@ -13,10 +13,9 @@ export const getData = async() => {
 }
 
 // POST
-export const postTodo = async(id, data) => {
-    const endpoint = `https://jsonbox.io/box_d788a9bf191742ebe74f/${id}`;
+export const postTodo = async(data) => {
     try {
-        const response = await fetch(endpoint, {
+        const response = await fetch(API_URL, {
             method: "POST",
             body: JSON.stringify(data),
             headers: {

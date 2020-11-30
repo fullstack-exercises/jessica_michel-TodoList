@@ -16,7 +16,6 @@ addToDoList();
 const createToDo = (item) => {
     const form = document.createElement('form');
     form.setAttribute('id', item._id); // creates ID
-    console.log(form.setAttribute('id', item._id));
     form.classList.add('todo__id');
 
     const newCheckbox = document.createElement('input');
@@ -43,21 +42,18 @@ const createToDo = (item) => {
 }
 
 const postNewTodo = async() => {
-
     formTodo.addEventListener('submit', async(event) => {
         event.preventDefault();
-        const targetID = event.target.nextElementSibling.childNodes[1].id;
-        console.log(event.target.nextElementSibling.childNodes[1].id);
-        // console.log(targetID);
-
         let item = {
-                description: inputTodo.value,
-                done: false
-            }
-            // console.log(item);
+            description: inputTodo.value,
+            done: false,
+        }
+        const post = await postTodo(item);
+        const data = await getData();
+        const id = data.find(({ description }) => description === inputTodo.value);
+        console.log(typeof id);
+        item._id = id._id;
         createToDo(item);
-
-        const data = await postTodo(targetID, item);
     });
 }
 postNewTodo();
@@ -73,7 +69,6 @@ toDoList.addEventListener('input', updateNewLabelTodo);
 
 const updateCheckedTodo = async(event) => {
     const labelText = event.target.nextElementSibling.innerText;
-    console.log(event.target);
     if (event.target && event.target.classList.contains('todo__checkbox')) {
         const targetID = event.target.parentNode.id;
         const data = await updateTodo(targetID, { description: labelText, done: true });
@@ -84,8 +79,6 @@ toDoList.addEventListener('change', updateCheckedTodo);
 const deleteToDoItem = async(event) => {
     const deleteBtn = event.target;
     if (event.target && event.target.classList.contains('todo__delete')) {
-        console.log(event.target);
-
         event.target.parentNode.classList.add('delete');
         const targetID = event.target.parentNode.id;
         const data = await deleteTodo(targetID);
