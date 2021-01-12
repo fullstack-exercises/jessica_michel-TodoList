@@ -31,6 +31,8 @@ const createToDo = (item) => {
 
     if (item.done === true) {
         label.style.textDecoration = "line-through";
+        newCheckbox.checked = true;
+        
     }
 
     const deleteBtn = document.createElement('i');
